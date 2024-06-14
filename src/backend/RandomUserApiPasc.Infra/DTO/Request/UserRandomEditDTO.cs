@@ -6,7 +6,7 @@
         public string NameTitle { get; set; }
         public string NameFirst { get; set; }
         public string NameLast { get; set; }
-        public DateTime DobDate { get; set; }
+        public DateTime? DobDate { get; set; }
         public int DobAge { get; set; }
         public int StreetNumber { get; set; }
         public string StreetName { get; set; }
@@ -19,8 +19,8 @@
         public string LoginPassword { get; set; }
         public string Phone { get; set; }
         public string Cell { get; set; }
-        public string PictureLarge { get; set; }
-        public string PictureMedium { get; set; }
-        public string PictureThumbnail { get; set; }
+        public string? PictureLarge { get; set; }
+        public string? PictureMedium { get; set; }
+        public string? PictureThumbnail { get; set; }
     }
 }

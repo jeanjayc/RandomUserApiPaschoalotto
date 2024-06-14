@@ -5,7 +5,7 @@ using RandomUserApiPasc.Infra.DTO.Request;
 namespace RandomUserApiPasc.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]/[action]/{id?}")]
     public class RandomUserController : ControllerBase
     {
         private readonly IUserRandomService _randomService;
@@ -37,6 +37,21 @@ namespace RandomUserApiPasc.Api.Controllers
             {
                 var result = await _randomService.GetAllUsers();
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocorreu um erro no servidor");
+                throw;
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRandomUserById(long id)
+        {
+            try
+            {
+                var user = await _randomService.GetUserById(id);
+                return Ok(user);
             }
             catch (Exception ex)
             {

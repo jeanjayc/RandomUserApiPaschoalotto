@@ -28,9 +28,16 @@ function getUserRandom() {
                 <td><img src="${user.pictureMedium}" alt="Medium Picture" width="50"/></td>
                 <td><img src="${user.pictureThumbnail}" alt="Thumbnail" width="50"/></td>
                 <td>${user.nat}</td>
+                <td><button onclick="redirectToEditUser(${user.id})" class="edit-icon"><i class="fas fa-edit"></i></button></td>
             `;
 
             tableBody.appendChild(row);
             })
         })
 }
+
+function redirectToEditUser(userId) {
+    window.location.href = `editUser.html?id=${userId}`;
+}
+
+

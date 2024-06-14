@@ -33,10 +33,10 @@ namespace RandomUserApiPasc.Infra.DAO
                                           id_name as IdName,id_value as IdValue, picture_large as PictureLarge, picture_medium as PictureMedium, 
                                           picture_thumbnail as PictureThumbnail, nat as Nat,seed as Seed, results_count as ResultsCount, page as Page, 
                                           version as Version
-                                       FROM users";
+                                       FROM users
+                                       WHERE id = @id";
 
-                var result = await conn.QueryFirstOrDefaultAsync<UserDataDTO>(query, new { id });
-                return result;
+                return await conn.QueryFirstOrDefaultAsync<UserDataDTO>(query, new { id });
             }
         }
 
