@@ -24,7 +24,6 @@ namespace RandomUserApiPasc.Api.Controllers
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }
@@ -39,10 +38,14 @@ namespace RandomUserApiPasc.Api.Controllers
             }
             catch (Exception ex)
             {
-
                 throw;
             }
         }
 
+        [HttpPut]
+        public async Task<IActionResult> Edit()
+        {
+            return Ok();
+        }
     }
 }
