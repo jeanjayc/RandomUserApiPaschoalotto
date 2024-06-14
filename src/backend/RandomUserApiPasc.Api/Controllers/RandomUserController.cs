@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RandomUserApiPasc.Application.Interface;
+using RandomUserApiPasc.Infra.DTO.Request;
 
 namespace RandomUserApiPasc.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]/[action]/{id?}")]
     public class RandomUserController : ControllerBase
     {
         private readonly IUserRandomService _randomService;
@@ -24,6 +25,7 @@ namespace RandomUserApiPasc.Api.Controllers
             }
             catch (Exception ex)
             {
+                return StatusCode(500, "Ocorreu um erro no servidor");
                 throw;
             }
         }
@@ -38,14 +40,46 @@ namespace RandomUserApiPasc.Api.Controllers
             }
             catch (Exception ex)
             {
+                return StatusCode(500, "Ocorreu um erro no servidor");
+                throw;
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRandomUserById(long id)
+        {
+            try
+            {
+                var user = await _randomService.GetUserById(id);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocorreu um erro no servidor");
                 throw;
             }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(long id, UserRandomEditDTO user)
         {
-            return Ok();
+            try
+            {
+                if (id <= 0) return BadRequest("Id não pode ser igual ou menor que 0");
+
+                var userExist = await _randomService.GetUserById(id);
+
+                if (userExist.Id <= 0) return NotFound();
+
+                await _randomService.EditUser(id, user, userExist);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Erro no servidor");
+                throw;
+            }
         }
     }
 }

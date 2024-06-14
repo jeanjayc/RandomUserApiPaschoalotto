@@ -15,3 +15,18 @@ img {
     max-width: 30px;
     height: auto;
 }
+
+.edit-icon {
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.edit-icon:hover {
+    color: #0056b3; 
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
