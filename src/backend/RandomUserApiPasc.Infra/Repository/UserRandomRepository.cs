@@ -61,12 +61,12 @@ namespace RandomUserApiPasc.Infra.Repository
 
         }
 
-        private UserData ParseJsonToUserData(string json)
+        private UserDataDTO ParseJsonToUserData(string json)
         {
             var jsonObject = JObject.Parse(json);
             var userResult = jsonObject["results"][0];
 
-            return new UserData
+            return new UserDataDTO
             {
                 Gender = userResult["gender"].ToString(),
                 NameTitle = userResult["name"]["title"].ToString(),

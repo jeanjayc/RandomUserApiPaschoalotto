@@ -17,8 +17,16 @@ namespace RandomUserApiPasc.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            var result = await _randomService.GenerateNewUser();
-            return Ok(result);
+            try
+            {
+                var result = await _randomService.GenerateNewUser();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
     }
 }

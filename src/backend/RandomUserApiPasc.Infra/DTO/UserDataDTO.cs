@@ -1,6 +1,6 @@
 ﻿namespace RandomUserApiPasc.Infra.DTO
 {
-    public class UserData
+    public class UserDataDTO
     {
         public string Gender { get; set; }
         public string NameTitle { get; set; }
