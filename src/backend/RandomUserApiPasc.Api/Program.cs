@@ -1,5 +1,7 @@
 using RandomUserApiPasc.Application.Interface;
 using RandomUserApiPasc.Application.Services;
+using RandomUserApiPasc.Infra.Interfaces;
+using RandomUserApiPasc.Infra.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IUserRandomService, UserRandomService>();
+builder.Services.AddTransient<IUserRandomRepository, UserRandomRepository>();
 
 var app = builder.Build();
 

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RandomUserApiPasc.Domain\RandomUserApiPasc.Domain.csproj" />
+    <ProjectReference Include="..\RandomUserApiPasc.Infra\RandomUserApiPasc.Infra.csproj" />
   </ItemGroup>
 
 </Project>

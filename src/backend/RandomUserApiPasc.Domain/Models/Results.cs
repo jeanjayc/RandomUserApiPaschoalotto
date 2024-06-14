@@ -1,10 +1,12 @@
-﻿using RandomUserApiPasc.Domain.Models.ValueObjects;
+﻿using Newtonsoft.Json;
+using RandomUserApiPasc.Domain.Models.ValueObjects;
 
 namespace RandomUserApiPasc.Domain.Models
 {
     public class Results
     {
-        public Result[] results { get; set; }
+        [JsonProperty("results")]
+        public Users[] Users { get; set; }
         public Info info { get; set; }
     }
 }

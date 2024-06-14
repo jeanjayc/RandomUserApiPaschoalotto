@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using RandomUserApiPasc.Application.Interface;
 using RandomUserApiPasc.Domain.Models;
+using RandomUserApiPasc.Infra.Interfaces;
 using RestSharp;
 
 namespace RandomUserApiPasc.Application.Services
@@ -9,13 +10,15 @@ namespace RandomUserApiPasc.Application.Services
     public class UserRandomService : IUserRandomService
     {
         private readonly IConfiguration _configuration;
+        private readonly IUserRandomRepository _userRepository;
 
-        public UserRandomService(IConfiguration configuration)
+        public UserRandomService(IConfiguration configuration, IUserRandomRepository userRepository)
         {
             _configuration = configuration;
+            _userRepository = userRepository;
         }
 
-        public async Task<Results> GerarNovosUsuarios()
+        public async Task<Results> GenerateNewUser()
         {
             var baseUrl = _configuration.GetSection("BaseUrl").Value;
 
@@ -25,6 +28,8 @@ namespace RandomUserApiPasc.Application.Services
             var response = await client.ExecuteAsync(request);
 
             var result = JsonConvert.DeserializeObject<Results>(response.Content);
+
+            await _userRepository.AddNewRandomUser(response.Content);
 
             return result;
         }

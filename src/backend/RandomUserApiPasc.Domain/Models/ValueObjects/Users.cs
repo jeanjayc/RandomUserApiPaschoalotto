@@ -1,6 +1,6 @@
 ﻿namespace RandomUserApiPasc.Domain.Models.ValueObjects
 {
-    public class Result
+    public class Users
     {
         public string gender { get; set; }
         public Name name { get; set; }
