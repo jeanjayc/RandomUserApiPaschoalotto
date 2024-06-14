@@ -79,9 +79,6 @@ namespace RandomUserApiPasc.Infra.Repository
             user.Country = userEdit.Country;
             user.State = userEdit.State;
             user.Postcode = userEdit.Postcode;
-            user.PictureLarge = userEdit.PictureLarge;
-            user.PictureMedium = userEdit.PictureMedium;
-            user.PictureThumbnail = userEdit.PictureThumbnail;
 
 
             var connectionString = _configuration.GetSection("connectionString").Value;

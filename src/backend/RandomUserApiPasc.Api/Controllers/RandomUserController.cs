@@ -5,7 +5,7 @@ using RandomUserApiPasc.Infra.DTO.Request;
 namespace RandomUserApiPasc.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/[action]/{id?}")]
+    [Route("api/[controller]/[action]/")]
     public class RandomUserController : ControllerBase
     {
         private readonly IUserRandomService _randomService;
@@ -26,7 +26,6 @@ namespace RandomUserApiPasc.Api.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, "Ocorreu um erro no servidor");
-                throw;
             }
         }
 
@@ -41,11 +40,10 @@ namespace RandomUserApiPasc.Api.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, "Ocorreu um erro no servidor");
-                throw;
             }
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetRandomUserById(long id)
         {
             try
@@ -56,11 +54,10 @@ namespace RandomUserApiPasc.Api.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, "Ocorreu um erro no servidor");
-                throw;
             }
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Edit(long id, UserRandomEditDTO user)
         {
             try
@@ -78,7 +75,6 @@ namespace RandomUserApiPasc.Api.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, "Erro no servidor");
-                throw;
             }
         }
     }
