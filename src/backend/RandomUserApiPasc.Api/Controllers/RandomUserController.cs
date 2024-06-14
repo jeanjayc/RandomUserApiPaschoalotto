@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RandomUserApiPasc.Application.Interface;
+using RandomUserApiPasc.Infra.DTO.Request;
 
 namespace RandomUserApiPasc.Api.Controllers
 {
@@ -24,6 +25,7 @@ namespace RandomUserApiPasc.Api.Controllers
             }
             catch (Exception ex)
             {
+                return StatusCode(500, "Ocorreu um erro no servidor");
                 throw;
             }
         }
@@ -38,14 +40,31 @@ namespace RandomUserApiPasc.Api.Controllers
             }
             catch (Exception ex)
             {
+                return StatusCode(500, "Ocorreu um erro no servidor");
                 throw;
             }
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit()
+        public async Task<IActionResult> Edit(long id, UserRandomEditDTO user)
         {
-            return Ok();
+            try
+            {
+                if (id <= 0) return BadRequest("Id não pode ser igual ou menor que 0");
+
+                var userExist = await _randomService.GetUserById(id);
+
+                if (userExist.Id <= 0) return NotFound();
+
+                await _randomService.EditUser(id, user, userExist);
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Erro no servidor");
+                throw;
+            }
         }
     }
 }

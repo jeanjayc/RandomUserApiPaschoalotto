@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using RandomUserApiPasc.Application.Interface;
 using RandomUserApiPasc.Domain.Models;
 using RandomUserApiPasc.Infra.DTO;
+using RandomUserApiPasc.Infra.DTO.Request;
 using RandomUserApiPasc.Infra.Interfaces;
 using RestSharp;
 
@@ -40,6 +41,16 @@ namespace RandomUserApiPasc.Application.Services
         public async Task<IEnumerable<UserDataDTO>> GetAllUsers()
         {
             return await _userRandomDAO.GetAllUsers();
+        }
+
+        public async Task<UserDataDTO> GetUserById(long id)
+        {
+            return await _userRandomDAO.GetUserById(id);
+        }
+
+        public async Task EditUser(long id, UserRandomEditDTO userEdit, UserDataDTO user)
+        {
+            await _userRepository.EditUser(id,userEdit ,user);
         }
     }
 }

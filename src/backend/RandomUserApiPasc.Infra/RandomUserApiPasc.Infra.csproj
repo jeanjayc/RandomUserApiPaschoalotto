@@ -16,4 +16,8 @@
     <ProjectReference Include="..\RandomUserApiPasc.Domain\RandomUserApiPasc.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTO\Response\" />
+  </ItemGroup>
+
 </Project>

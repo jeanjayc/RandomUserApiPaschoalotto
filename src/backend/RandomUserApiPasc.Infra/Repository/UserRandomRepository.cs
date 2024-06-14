@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using Npgsql;
 using RandomUserApiPasc.Infra.DTO;
+using RandomUserApiPasc.Infra.DTO.Request;
 using RandomUserApiPasc.Infra.Interfaces;
 
 namespace RandomUserApiPasc.Infra.Repository
@@ -59,6 +60,92 @@ namespace RandomUserApiPasc.Infra.Repository
                 throw;
             }
 
+        }
+
+        public async Task EditUser(long id,UserRandomEditDTO userEdit ,UserDataDTO user)
+        {
+            user.Gender = userEdit.Gender;
+            user.NameTitle = userEdit.NameTitle;
+            user.NameFirst = userEdit.NameFirst;
+            user.NameLast = userEdit.NameLast;
+            user.Email = userEdit.Email;
+            user.LoginUsername = userEdit.LoginUsername;
+            user.LoginPassword = userEdit.LoginPassword;
+            user.Phone = userEdit.Phone;
+            user.Cell = userEdit.Cell;
+            user.StreetNumber = userEdit.StreetNumber;
+            user.StreetName = userEdit.StreetName;
+            user.City = userEdit.City;
+            user.Country = userEdit.Country;
+            user.State = userEdit.State;
+            user.Postcode = userEdit.Postcode;
+            user.PictureLarge = userEdit.PictureLarge;
+            user.PictureMedium = userEdit.PictureMedium;
+            user.PictureThumbnail = userEdit.PictureThumbnail;
+
+
+            var connectionString = _configuration.GetSection("connectionString").Value;
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                await connection.OpenAsync();
+
+                string sql = @"
+                    UPDATE users 
+                    SET 
+                       gender = @Gender, name_title = @NameTitle, name_first = @NameFirst, name_last = @NameLast,street_number = @StreetNumber,
+                       street_name = @StreetName, city = @City, state = @State, country = @Country, postcode = @Postcode, latitude = @Latitude,
+                       longitude = @Longitude,timezone_offset = @TimezoneOffset, timezone_description = @TimezoneDescription, email = @Email,
+                       login_uuid = @LoginUuid, login_username = @LoginUsername, login_password = @LoginPassword, login_salt = @LoginSalt,
+                       login_md5 = @LoginMd5, login_sha1 = @LoginSha1, login_sha256 = @LoginSha256, dob_date = @DobDate, dob_age = @DobAge,
+                       registered_date = @RegisteredDate, registered_age = @RegisteredAge, phone = @Phone, cell = @Cell, 
+                       id_name = @IdName,id_value = @IdValue, picture_large = @PictureLarge, picture_medium = @PictureMedium, 
+                       picture_thumbnail = @PictureThumbnail, nat = @Nat,seed = @Seed, results_count = @ResultsCount, page = @Page, 
+                       version = @Version
+                    WHERE id = @Id";
+
+                var affectedRows = await connection.ExecuteAsync(sql, new
+                {
+                    user.Gender,
+                    user.NameTitle,
+                    user.NameFirst,
+                    user.NameLast,
+                    user.StreetNumber,
+                    user.StreetName,
+                    user.City,
+                    user.State,
+                    user.Country,
+                    user.Postcode,
+                    user.Latitude,
+                    user.Longitude,
+                    user.TimezoneOffset,
+                    user.TimezoneDescription,
+                    user.Email,
+                    user.LoginUuid,
+                    user.LoginUsername,
+                    user.LoginPassword,
+                    user.LoginSalt,
+                    user.LoginMd5,
+                    user.LoginSha1,
+                    user.LoginSha256,
+                    user.DobDate,
+                    user.DobAge,
+                    user.RegisteredDate,
+                    user.RegisteredAge,
+                    user.Phone,
+                    user.Cell,
+                    user.IdName,
+                    user.IdValue,
+                    user.PictureLarge,
+                    user.PictureMedium,
+                    user.PictureThumbnail,
+                    user.Nat,
+                    user.Seed,
+                    user.ResultsCount,
+                    user.Page,
+                    user.Version,
+                    id
+                });
+            }
         }
 
         private UserDataDTO ParseJsonToUserData(string json)

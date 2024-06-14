@@ -2,6 +2,7 @@
 {
     public class UserDataDTO
     {
+        public long Id { get; set; }
         public string Gender { get; set; }
         public string NameTitle { get; set; }
         public string NameFirst { get; set; }
