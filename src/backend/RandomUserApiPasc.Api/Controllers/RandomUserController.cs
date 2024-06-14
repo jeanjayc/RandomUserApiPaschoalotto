@@ -15,7 +15,7 @@ namespace RandomUserApiPasc.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> GenerateRandomUser()
         {
             try
             {
@@ -28,5 +28,21 @@ namespace RandomUserApiPasc.Api.Controllers
                 throw;
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllRandomUser()
+        {
+            try
+            {
+                var result = await _randomService.GetAllUsers();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

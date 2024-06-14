@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using RandomUserApiPasc.Application.Interface;
 using RandomUserApiPasc.Domain.Models;
+using RandomUserApiPasc.Infra.DTO;
 using RandomUserApiPasc.Infra.Interfaces;
 using RestSharp;
 
@@ -11,11 +12,13 @@ namespace RandomUserApiPasc.Application.Services
     {
         private readonly IConfiguration _configuration;
         private readonly IUserRandomRepository _userRepository;
+        private readonly IUserRandomDAO _userRandomDAO;
 
-        public UserRandomService(IConfiguration configuration, IUserRandomRepository userRepository)
+        public UserRandomService(IConfiguration configuration, IUserRandomRepository userRepository, IUserRandomDAO userRandomDAO)
         {
             _configuration = configuration;
             _userRepository = userRepository;
+            _userRandomDAO = userRandomDAO;
         }
 
         public async Task<Results> GenerateNewUser()
@@ -32,6 +35,11 @@ namespace RandomUserApiPasc.Application.Services
             await _userRepository.AddNewRandomUser(response.Content);
 
             return result;
+        }
+
+        public async Task<IEnumerable<UserDataDTO>> GetAllUsers()
+        {
+            return await _userRandomDAO.GetAllUsers();
         }
     }
 }

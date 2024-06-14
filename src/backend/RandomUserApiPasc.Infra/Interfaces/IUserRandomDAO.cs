@@ -1,11 +1,10 @@
 ﻿using RandomUserApiPasc.Domain.Models;
 using RandomUserApiPasc.Infra.DTO;
 
-namespace RandomUserApiPasc.Application.Interface
+namespace RandomUserApiPasc.Infra.Interfaces
 {
-    public interface IUserRandomService
+    public interface IUserRandomDAO
     {
-        Task<Results> GenerateNewUser();
         Task<IEnumerable<UserDataDTO>> GetAllUsers();
     }
 }
